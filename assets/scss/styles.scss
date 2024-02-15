@@ -23,6 +23,8 @@ $theme-colors: (
     "refund": #7BBB12,
 );
 
+$font-family-sans-serif: "Noto Sans";
+
 /*ESTILOS DO THEME SWITCH*/
 
 $form-switch-width: 2.5em;
@@ -37,25 +39,68 @@ $form-switch-focus-bg-image: url('/sun.svg');
 $form-switch-checked-bg-image: url('/moon.svg');
 
 .form-check-input{
-    padding: 9px;
+    padding: 8px;
 }
 
-@import 'bootstrap/scss/bootstrap';
+/* ESTILOS DROPDOWN*/
+$dropdown-link-hover-color: white;
+$dropdown-link-hover-bg: #FED51E; 
+
+/*ESTILOS MODAIS*/
+$list-group-hover-bg: #FED51E;
+$list-group-active-bg: #FED51E;
+@import "bootstrap/scss/bootstrap";
 
 /*ESTILOS DA SEARCH BAR*/
-@mixin my-button-outline-success($text-color, $hover-bg, $hover-border-radius){
+@mixin my-button-outline-success($text-color, $bg-color, $hover-bg, $hover-border-radius){
     color: $text-color;
+    background-color: $bg-color;
 
     &:hover {
         background-color: $hover-bg;
         border-radius: $hover-border-radius;
     }
 }
-
-$search-buttom: map-get($theme-colors, "warning");
-
-// Personalizando o botão de contorno de sucesso    
-.btn-outline-success {
-    @include my-button-outline-success(gray, $search-buttom, 0px);
+@mixin my-form-control($text-color, $bg-color){
+    color: $text-color;
+    background-color: $bg-color;
 }
 
+
+$search-buttom: map-get($theme-colors, "warning");
+$search-text: rgb(51, 51, 51, 0.7);
+
+// Personalizando o botão de contorno de sucesso    
+.btn-outline-success    {
+    @include my-button-outline-success($search-text, white, $search-buttom, 4px);
+    border: 1;
+    border-right: 0;
+}
+.btn-outline-success:focus{
+    border-radius: 4px;
+}
+.form-control{
+    @include my-form-control($search-text, white);
+    border: 1;
+    border-left: 0;
+    font-size: 22px;
+}
+.form-control::placeholder {
+    font-size: 22px;
+    color: $search-text; 
+}
+.form-control:focus {
+    box-shadow: 0 0 0 0;
+    text-shadow: 0;
+}
+.modal-header{
+    background-color: #0B3B69;
+}
+.modal-content{
+    border-radius: 17px;   
+    box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.6);
+}
+
+.form-check-input{
+    box-shadow: 0px;
+}

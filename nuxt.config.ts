@@ -9,4 +9,11 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt' 
   ],
+  app: {
+    head: {
+      link: [ 
+        {rel: 'icon', type: 'svg', href: '/logo.svg'} 
+      ]
+    }
+  }
 })

@@ -22,5 +22,8 @@
   },
   "overrides": {
     "vue": "latest"
+  },
+  "devDependencies": {
+    "sass-loader": "^14.1.0"
   }
 }
