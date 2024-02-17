@@ -39,13 +39,17 @@ jobs:
       - name: Build aplication
         run: yarn build
 
+      - name: Checking Dirs
+        run:
+          ls -a
+
       - name: Moving to Dir
         run:
           cd .output
-
+      
       - name: Checking Dirs
         run:
-          ls
+          ls -a
 
       - name: Adding output files
         run: 
