@@ -1,0 +1,5 @@
+$mynewcolor: red;
+.btn-outline-success {
+    @include button-outline-variant($mynewcolor, #222222, lighten($mynewcolor,5%), $mynewcolor);
+}
+@import 'bootstrap/scss/bootstrap';
