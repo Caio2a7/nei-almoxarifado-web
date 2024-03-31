@@ -2,6 +2,9 @@
     <ModalItemRegister />
     <div class="catalog-header d-flex align-items-center">
         <h2><slot name="title"/></h2>
+        <div class="d-block">
+            <slot name="search" />
+        </div>
         <div class="actions-buttons d-flex">
             <button class="action-btn d-flex btn btn-outline-primary border-0" data-bs-toggle="modal" data-bs-target="#itemRegistration">
                 Novo

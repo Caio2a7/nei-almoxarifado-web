@@ -13,7 +13,7 @@
         <template v-slot:body>
           <template v-if="showResults">
             <ul class="list-group">
-              <a class="text-decoration-none teste" v-for="result in searchResults" :href="`/inventario/${result.storage}`" :key="result.name">
+              <a class="text-decoration-none search-select" v-for="result in searchResults" :href="`/inventario/${result.storage}`" :key="result.name">
                 <li class="searchResult list-group-item list-group-item-action d-flex justify-content-between align-items-center" tabindex="0"> 
                   {{ result.name }} 
                   <span class="badge bg-primary rounded-pill" v-if="result"> {{ result.qtd }} </span>
@@ -51,7 +51,7 @@ export default{
             else {
                 this.searchCount++;
             }
-            document.getElementsByClassName("teste")[0].focus();
+            document.getElementsByClassName("search-select")[0].focus();
             searchResult[this.searchCount - 1].focus();
         },
         SearchUp() {

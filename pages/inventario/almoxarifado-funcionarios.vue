@@ -5,6 +5,9 @@
     <div class="row d-block">
         <TablesTable>
             <template v-slot:title>Almoxarifado Funcionários</template>
+            <template v-slot:search>
+                <input v-model="searchInput" class="table-searchbar form-control" placeholder="Pesquisar"/>
+            </template>
             <template v-slot:items>
             <tr v-if="filteredItemsSize > 0" v-for="(item, index) in filteredItems" :key="index">
                <th scope="row"><p>{{ item.name }}</p></th>
@@ -33,16 +36,28 @@
              </div>
             </template>
         </TablesTable>
+        <nav aria-label="Page navigation d-flex">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link bg-primary text-light" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span></a></li>
+                <li class="page-item"><a class="page-link bg-primary text-light" href="#">1</a></li>
+                <li class="page-item"><a class="page-link bg-primary text-light" href="#">2</a></li>
+                <li class="page-item"><a class="page-link bg-primary text-light" href="#">3</a></li>
+                <li class="page-item"><a class="page-link bg-primary text-light" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            </ul>
+        </nav>
     </div>
 </template>
 
 <script setup>
 import { useRoute } from 'vue-router';
 import { useStorageStore } from '../../stores/storage';
-import { ref, computed, onMounted} from 'vue';
+import { ref, computed, onMounted, onUpdated} from 'vue';
 
+const router = useRoute();
 const store = useStorageStore();
 const items = ref(store.items); 
+const searchInput = ref("");
 
 const isPopup = computed(() => {
     return store.popupActive
@@ -52,10 +67,12 @@ const currentRoute = useRoute().fullPath.split('/')[2];
 onMounted(() => {
     store.deleteMode = false,
     store.editMode = false
-})
+});
 
-const filteredItems = computed(() => items.value.filter(item => item.storage.includes("almoxarifado-funcionarios")));
+
+const filteredItems = computed(() => items.value.filter(item => item.storage.includes("almoxarifado-funcionarios") && item.name.includes(searchInput.value)));
 const filteredItemsSize = computed(() => filteredItems.value.length);
+
 
 const itemIndex = ref(0);
 const currentItem = computed(() => filteredItems.value[itemIndex.value]);
@@ -89,6 +106,10 @@ p{
 }
 .action-btn{
     margin-right: 10px;
+}
+.table-searchbar{
+    margin-left: 190px;
+    width: 240px;
 }
 .btn-outline-primary{
     color: rgb(51,51,51, 0.7);

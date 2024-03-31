@@ -14,7 +14,8 @@ export const useStorageStore = defineStore('storage', {
       isRotated: false,
       deleteMode: false,
       editMode: false,
-      popupActive: false
+      popupActive: false,
+      tableSearch: " "
     }),
     actions: {
       addItem(item){
