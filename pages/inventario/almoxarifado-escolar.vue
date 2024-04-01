@@ -9,7 +9,7 @@
                 <input v-model="searchInput" class="table-searchbar form-control" placeholder="Pesquisar"/>
             </template>
             <template v-slot:items>
-            <tr v-if="filteredItemsSize > 0" v-for="(item, index) in filteredItems" :key="index">
+            <tr v-if="filteredItemsSize > 0" v-for="(item, index) in filteredItems.slice(num1, num)" :key="index">
                <th scope="row"><p>{{ item.name }}</p></th>
                <th>
                     <p v-if="item.sipac">{{ item.sipac }}</p>
@@ -38,12 +38,13 @@
         </TablesTable>
         <nav aria-label="Page navigation d-flex">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link bg-primary text-light" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span></a></li>
-                <li class="page-item"><a class="page-link bg-primary text-light" href="#">1</a></li>
+                <li class="page-item"><button class="page-link bg-primary text-light" @click="Teste1">
+                    <span aria-hidden="true">&laquo;</span></button>
+                </li>
+                <li class="page-item"><button class="page-link bg-primary text-light">1</button></li>
                 <li class="page-item"><a class="page-link bg-primary text-light" href="#">2</a></li>
                 <li class="page-item"><a class="page-link bg-primary text-light" href="#">3</a></li>
-                <li class="page-item"><a class="page-link bg-primary text-light" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                <li class="page-item" disabled><button class="page-link bg-primary text-light" id="Teste" @click="Teste"><span aria-hidden="true">&raquo;</span></button></li>
             </ul>
         </nav>
     </div>
@@ -59,6 +60,7 @@ const store = useStorageStore();
 const items = ref(store.items); 
 const searchInput = ref("");
 
+
 const isPopup = computed(() => {
     return store.popupActive
 })
@@ -69,10 +71,24 @@ onMounted(() => {
     store.editMode = false
 });
 
-
 const filteredItems = computed(() => items.value.filter(item => item.storage.includes("almoxarifado-escolar") && item.name.includes(searchInput.value)));
 const filteredItemsSize = computed(() => filteredItems.value.length);
-
+const num = ref(5);
+const num1 = ref(0);
+const Teste = (() => {
+    num.value += 5;
+    num1.value += 5;
+    if(num1.value === 10){
+        console.log("foi")
+        document.getElementById("Teste").classList.toggle("disabled");
+        document.getElementById("Teste").classList.toggle("bg-dark");
+        console.log(document.getElementById("Teste").classList);
+    }
+});
+const Teste1 = (() => {
+    num.value -= 5;
+    num1.value -= 5;
+});
 
 const itemIndex = ref(0);
 const currentItem = computed(() => filteredItems.value[itemIndex.value]);
